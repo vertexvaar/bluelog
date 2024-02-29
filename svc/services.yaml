@@ -1,0 +1,24 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  VerteXVaaR\BlueLog\:
+    resource: '../src/*'
+
+  VerteXVaaR\BlueLog\LoggerFactory:
+    public: true
+    shared: true
+
+  Psr\Log\LoggerInterface:
+    class: Monolog\Logger
+    factory: [ '@VerteXVaaR\BlueLog\LoggerFactory', 'create' ]
+    arguments: [ 'default' ]
+
+  VerteXVaaR\BlueLog\Bridge\BlueScheduler\MonitoringScheduler:
+    decorates: VerteXVaaR\BlueScheduler\Scheduler
+    public: true
+
+#  VerteXVaaR\BlueLog\Bridge\BlueSprints\Store\TracingFileStore:
+#    decorates: VerteXVaaR\BlueSprints\Store\FileStore
+#    public: true
